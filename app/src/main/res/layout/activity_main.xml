@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_margin="16dp"
+        android:id="@+id/itemRecyclerView"
+        android:background="@color/cardview_dark_background"/>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="bottom"
+        android:orientation="horizontal"
+        android:text="Total"
+        android:textSize="32dp"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/Total"
+        tools:ignore="MissingConstraints,RtlCompat"
+        tools:layout_editor_absoluteX="0dp"
+        android:padding="5dp"
+        android:background="@color/white"/>
+
+    <TextView
+        android:id="@+id/Total"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:textSize="24dp"
+        android:text="hello"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="0dp"
+        android:background="@color/white"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
