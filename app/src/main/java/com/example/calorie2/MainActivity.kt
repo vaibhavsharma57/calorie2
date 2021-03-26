@@ -2,12 +2,14 @@ package com.example.calorie2
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ItemAdapter.OnItemClickListener {
 
     private val itemsList = ArrayList<Item>()
+    var total : Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,7 +19,13 @@ class MainActivity : AppCompatActivity() {
         initRV()
     }
 
-        private fun setupData(){
+    override fun onItemClick(position: Int) {
+
+        total += itemsList[position].calories
+        Toast.makeText(this,total.toString(),Toast.LENGTH_SHORT).show()
+    }
+
+    private fun setupData(){
             val item1 = Item("Milk", R.drawable.milk, 22 , "Add 50ml")
             val item2 = Item("Egg", R.drawable.egg, 75 , "Add 1")
             val item3 = Item("Potato", R.drawable.potato, 100, "Add 100g")
@@ -49,7 +57,7 @@ class MainActivity : AppCompatActivity() {
 
         private fun initRV(){
             itemRecyclerView.layoutManager = LinearLayoutManager(this)
-            val mAdapter = ItemAdapter(this, itemsList)
+            val mAdapter = ItemAdapter(this, itemsList,this)
             itemRecyclerView.adapter = mAdapter
             mAdapter.notifyDataSetChanged()
         }

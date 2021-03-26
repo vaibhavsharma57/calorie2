@@ -2,21 +2,28 @@ package com.example.calorie2
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import android.widget.Toast.makeText
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.rv_item.view.*
+import org.w3c.dom.Text
 
 class ItemAdapter(
     private val context: Context,
-    private val images: List <Item>
+    private val images: List <Item>,
+    private val listener: OnItemClickListener
 
-    ) : RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
 
-        class ItemViewHolder(view: View) : RecyclerView.ViewHolder(view){
+
+) : RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
+
+        inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener{
 
             fun bindView(items: Item) {
                 itemView.image.setImageResource(items.imageSrc)
@@ -24,8 +31,21 @@ class ItemAdapter(
                 itemView.add_quantity.text = items.quantity
                 itemView.item_calories.text = items.calories.toString()
             }
+            init {
+                itemView.setOnClickListener(this)
+            }
 
+            override fun onClick(v: View?) {
+                val position = adapterPosition
+                if (position!= RecyclerView.NO_POSITION) {
+                    listener.onItemClick(position)
+                }
+            }
         }
+    interface OnItemClickListener{
+        fun onItemClick(position: Int)
+    }
+
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
             val view = LayoutInflater.from(parent.context).inflate(R.layout.rv_item, parent, false)
@@ -37,16 +57,7 @@ class ItemAdapter(
 
         override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
             holder.bindView(images[position])
-            holder.itemView.setOnClickListener{
-//                itemView.Total.text += images[position].calories.toString()
-                var calCount = 0
-                calCount+= images[position].calories
-                var b = Bundle()
-                b.putBoolean("isActive", true)
-                intent.putExtras(b)
-                startActivity(intent)
 
-            }
         }
 
 }
